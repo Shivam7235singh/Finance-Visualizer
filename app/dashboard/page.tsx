@@ -2,14 +2,7 @@
 
 import { useEffect, useState } from "react";
 import useFinanceStore from "@/store/financeStore";
-
-type Transaction = {
-  _id: string;
-  userId: string;
-  amount: number;
-  category: string;
-  date: string;
-};
+import {Transaction} from "@/types/Transaction";
 
 const categories = [
   "Food", "Transport", "Rent", "Health", "Shopping",
@@ -84,22 +77,20 @@ export default function Dashboard() {
     });
 
     if (res.ok) {
-      const updatedList = transactions.map((t) =>
-        t._id === txn._id ? updatedTxn : t
-      );
       updateTransaction(updatedTxn);
-      setTransactions(updatedList);
       setEditingId(null);
-    }
+    }else {
+    console.error("Failed to update transaction");
+   }
   };
 
   const handleDelete = async (id: string) => {
     const res = await fetch(`/api/transactions/${id}`, { method: "DELETE" });
     if (res.ok) {
-      const updatedList = transactions.filter((t) => t._id !== id);
-      setTransactions(updatedList);
       deleteTransaction(id);
-    }
+    }else {
+    console.error("Failed to delete transaction");
+  }
   };
 
   const MonthlyExpenses = () => {

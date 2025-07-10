@@ -1,12 +1,6 @@
 import { create } from 'zustand';
+import { Transaction } from '@/types/Transaction';
 
-interface Transaction {
-  _id?: string;
-  userId: string;
-  amount: number;
-  date: Date;
-  category: string;
-}
 
 interface FinanceState {
   transactions: Transaction[];
