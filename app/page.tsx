@@ -4,14 +4,14 @@ import Link from 'next/link';
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-blue-200 to-blue-400 flex flex-col items-center justify-center px-4 text-center overflow-hidden">
+    <main className=" relative min-h-screen bg-gradient-to-r from-purple-200 via-indigo-400 to-blue-400 flex flex-col items-center justify-center px-4 text-center overflow-hidden">
       
       {/* 🔵 Animated background dots */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {[...Array(40)].map((_, i) => (
           <div
             key={i}
-            className="absolute bg-blue-500 opacity-20 rounded-full animate-pulse"
+            className="absolute bg-white opacity-20 rounded-full animate-pulse"
             style={{
               width: `${Math.random() * 6 + 4}px`,
               height: `${Math.random() * 6 + 4}px`,
@@ -25,9 +25,9 @@ export default function HomePage() {
       </div>
 
       {/* 🔵 Main content */}
-      <div className="relative z-10 max-w-2xl">
+      <div className="relative z-10 max-w-4xl text-center px-6">
         <h1 className="text-4xl md:text-5xl font-bold text-blue-700 mb-4">
-          💰 Welcome to Your Personal Finance Tracker
+          💰 Welcome to Your <span className='text-yellow-500'>Personal Finance Tracker</span>
         </h1>
         <p className="text-gray-700 mb-8 text-lg">
           Track expenses, analyze your spending, and take control of your finances — all in one place.

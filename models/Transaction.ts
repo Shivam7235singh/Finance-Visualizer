@@ -4,7 +4,7 @@ export interface ITransaction {
   userId: string;
   amount: number;
   date?: Date;
-  category: string; // kept string, but validated via enum below
+  category: string; 
 }
 
 const transactionSchema = new Schema<ITransaction>(

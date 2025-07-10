@@ -1,39 +1,39 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGO_URI!;
 
-if(!MONGODB_URI){
-   throw new Error ('please add mongodb uri in env variable ')
+if (!MONGODB_URI) {
+  throw new Error('Please add MongoDB URI in .env variable');
 }
 
-let cached = global.mongoose
+let cached = (global as any).mongoose;
 
-if(!cached){
-    cached = global.mongoose = {conn : null , promise : null};
+if (!cached) {
+  cached = (global as any).mongoose = { conn: null, promise: null };
 }
 
-export async function connectToDatabase (){
-    if(cached.conn){
-        return cached.conn;
-    }
+export async function connectToDatabase() {
+  if (cached.conn) {
+    return cached.conn;
+  }
 
-    if(!cached.promise){
-       const opts = {
-         bufferCommands : true,
-         maxPoolSize :10
-       }
-        mongoose
-        .connect(MONGODB_URI, opts)
-        .then(() => mongoose.connection)
-    }
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+      maxPoolSize: 10,
+    };
 
-    try {
-        cached.conn = await cached.promise
-    } catch (error) {
-         cached.promise = null;
-         console.error("mongodb connection error" , error);
-    }
-   
-     return cached.conn;
+    // ✅ Correctly assign promise
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => mongoose);
+  }
 
+  try {
+    cached.conn = await cached.promise;
+  } catch (error) {
+    cached.promise = null;
+    console.error('❌ MongoDB connection error:', error);
+    throw error; // optionally re-throw
+  }
+
+  return cached.conn;
 }

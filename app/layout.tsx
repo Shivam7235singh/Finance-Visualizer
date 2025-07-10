@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -10,9 +9,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body >
-        <Navbar/>
-        {children}
+      <body className="h-screen w-full overflow-hidden relative bg-gradient-to-r from-purple-200 via-indigo-400 to-blue-400">
+        <Navbar />
+        <div className="h-[calc(100vh-64px)] ">
+          {children}
+        </div>
       </body>
     </html>
   );
